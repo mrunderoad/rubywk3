@@ -59,16 +59,16 @@ class Volunteer
     DB.exec("DELETE FROM volunteers *;")
   end
 
-  def projects
-    projects = []
-    results = DB.exec("SELECT project_id FROM projects WHERE volunteer_id = #{@id};")
-    results.each do |result|
-      project_id = result.fetch("project_id").to_i
-      project = DB.exec("SELECT * FROM projects WHERE id = #{project_id};")
-      name = project.first.fetch("name")
-      projects.push(Project.new({name: name, id: project_id}))
-    end
-    projects
-  end
+  # def projects
+  #   projects = []
+  #   results = DB.exec("SELECT project_id FROM projects WHERE volunteer_id = #{@id};")
+  #   results.each do |result|
+  #     project_id = result.fetch("project_id").to_i
+  #     project = DB.exec("SELECT * FROM projects WHERE id = #{project_id};")
+  #     name = project.first.fetch("name")
+  #     projects.push(Project.new({name: name, id: project_id}))
+  #   end
+  #   projects
+  # end
 
 end
