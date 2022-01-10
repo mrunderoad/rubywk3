@@ -41,6 +41,7 @@ class Project
 
   def update(attributes)
     @title = attributes.fetch(:title)
+    # @id = attributes.fetch(:id).to_i
     DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
   end
 
@@ -50,13 +51,10 @@ class Project
 
   def volunteers
     volunteers = []
-    results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{@id};")
-    results.each do |volunteer|
-      name = volunteer.fetch("name")
-      project_id = volunteer.fetch("project_id").to_i
-      id = volunteer.fetch("id").to_i
-      volunteers.push(Volunteer.new({name: name, project_id: project_id, id: id}))
-    end
+    results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{@id}")
+    results.each do |result|
+      volunteers.push(Volunteer.new({name: result.fetch("name"), project_id: result.fetch("project_id").to_i, id: result.fetch("id").to_i }))
+    end 
     volunteers
   end
 
