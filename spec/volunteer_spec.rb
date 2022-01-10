@@ -1,4 +1,6 @@
 require "spec_helper"
+require './lib/project'
+require './lib/volunteer'
 
 describe Volunteer do
   describe '#name' do

@@ -28,8 +28,8 @@ get('/projects/new') do
 end
 
 post('/projects') do
-  name = params[:project_name]
-  project = Project.new(name: name)
+  title = params[:title]
+  project = Project.new(title: title)
   project.save()
   @projects = Project.all
   erb(:projects)
@@ -47,7 +47,7 @@ end
 
 patch('/projects/:id') do
   @project = Project.find(params[:id].to_i())
-  @project.update({name: params[:name]})
+  @project.update({title: params[:title]})
   @projects = Project.all
   erb(:projects)
 end

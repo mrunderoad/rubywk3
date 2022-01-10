@@ -1,4 +1,6 @@
 require "spec_helper"
+require './lib/project'
+require './lib/volunteer'
 
 describe Project do
   describe '#title' do
@@ -55,7 +57,7 @@ describe Project do
     it 'returns a project by id' do
       project1 = Project.new({:title => 'Teaching Kids to Code', :id => nil})
       project1.save
-      project2 = Projecct.new({:title => 'Teaching Ruby to Kids', :id => nil})
+      project2 = Project.new({:title => 'Teaching Ruby to Kids', :id => nil})
       project2.save
       expect(Project.find(project1.id)).to eq project1
     end

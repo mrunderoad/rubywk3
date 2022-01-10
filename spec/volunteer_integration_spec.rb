@@ -2,6 +2,8 @@ require('capybara/rspec')
 require('./app')
 require('pry')
 require('spec_helper')
+require('Volunteer')
+require('Project')
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
 
@@ -41,7 +43,7 @@ describe 'the project delete path', {:type => :feature} do
   end
 end
 
-describe 'the colunteer detail page path', {:type => :feature} do
+describe 'the volunteer detail page path', {:type => :feature} do
   it 'shows a volunteer detail page' do
     test_project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
     test_project.save

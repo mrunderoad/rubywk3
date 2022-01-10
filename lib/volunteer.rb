@@ -36,7 +36,7 @@ class Volunteer
     if volunteer
       name = volunteer.fetch("name")
       id = volunteer.fetch("id").to_i
-      Volunteers.new({name: name, id: id})
+      Volunteer.new({name: name, id: id})
     else
       nil
     end
