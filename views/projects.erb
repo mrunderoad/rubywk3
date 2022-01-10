@@ -8,9 +8,18 @@
   <p>There are currently no Projects to display.</p>
 <% end %>
 
-<a href="/projects/new"><button class="btn-success">Add a new Project</button></a>
 
 <form action="/projects" method="post">
   <input name="_method" type="hidden" value="delete">
   <button type="submit" class="btn btn-danger">Remove ALL Projects?</button>
+</form>
+
+<h2>Create a project here!</h2>
+
+<form action="/projects" method="post">
+  <div class="form-group">
+    <label for="title">Project title</label>
+    <input id="title" name="title" class="form-control" type="text" required>
+  </div>
+  <button type="submit" class="btn">Create Project</button>
 </form>

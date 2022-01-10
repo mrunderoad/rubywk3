@@ -37,21 +37,20 @@ class Project
     DB.exec("DELETE FROM projects *;")
   end
 
-  def update(attributes)
-    if (attributes.has_key?(:title)) && (attributes[:title] != nil)
-      @title = attributes[:title]
-      DB.exec("UPDATE projects SET title = '#{@title}' id = #{@id};")
-    elsif (attributes.has_key?(:volunteer_name)) && (attributes[:volunteer_name] != nil)
-      volunteer_name = attributes[:volunteer_name]
-      volunteer = DB.exec("SELECT * FROM volunteers WHERE lower(name)='#{volunteer_name.upcase}';").first
-    end
-  end
-
   # def update(attributes)
-  #   @title = attributes.fetch(:title)
-  #   @id = attributes.fetch(:project_id).to_i
-  #   DB.exe("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+  #   if (attributes.has_key?(:title)) && (attributes[:title] != nil)
+  #     @title = attributes[:title]
+  #     DB.exec("UPDATE projects SET title = '#{@title}' id = #{@id};")
+  #   elsif (attributes.has_key?(:volunteer_name)) && (attributes[:volunteer_name] != nil)
+  #     volunteer_name = attributes[:volunteer_name]
+  #     volunteer = DB.exec("SELECT * FROM volunteers WHERE lower(name)='#{volunteer_name.upcase}';").first
+  #   end
   # end
+
+  def update(attributes)
+    @title = attributes.fetch(:title)
+    DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+  end
 
   def delete
     DB.exec("DELETE FROM projects WHERE id = #{@id};")
