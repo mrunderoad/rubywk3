@@ -1,3 +1,5 @@
+require 'pry'
+
 class Project
   attr_accessor :id, :title
 
@@ -37,16 +39,6 @@ class Project
     DB.exec("DELETE FROM projects *;")
   end
 
-  # def update(attributes)
-  #   if (attributes.has_key?(:title)) && (attributes[:title] != nil)
-  #     @title = attributes[:title]
-  #     DB.exec("UPDATE projects SET title = '#{@title}' id = #{@id};")
-  #   elsif (attributes.has_key?(:volunteer_name)) && (attributes[:volunteer_name] != nil)
-  #     volunteer_name = attributes[:volunteer_name]
-  #     volunteer = DB.exec("SELECT * FROM volunteers WHERE lower(name)='#{volunteer_name.upcase}';").first
-  #   end
-  # end
-
   def update(attributes)
     @title = attributes.fetch(:title)
     DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
@@ -56,20 +48,13 @@ class Project
     DB.exec("DELETE FROM projects WHERE id = #{@id};")
   end
 
-  # def volunteers
-  #    if volunteers = []
-  #     results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{@id};")
-  #    end
-  #   volunteers
-  # end
-
   def volunteers
     volunteers = []
     results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{@id};")
     results.each do |volunteer|
       name = volunteer.fetch("name")
       project_id = volunteer.fetch("project_id").to_i
-      id = volunteer.fetch("project_id").to_i
+      id = volunteer.fetch("id").to_i
       volunteers.push(Volunteer.new({name: name, project_id: project_id, id: id}))
     end
     volunteers

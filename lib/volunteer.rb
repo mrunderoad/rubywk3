@@ -1,3 +1,5 @@
+require 'pry'
+
 class Volunteer
   attr_accessor :name, :id, :project_id
 
@@ -21,13 +23,13 @@ class Volunteer
     returned_volunteers.each() do |volunteer|
       name = volunteer.fetch("name")
       id = volunteer.fetch("id").to_i
-      volunteers.push(Volunteer.new({name: name, id: id}))
+      volunteers.push(Volunteer.new({name: name, project_id: project_id, id: id}))
     end
     volunteers
   end
 
   def save
-    result = DB.exec("INSERT INTO volunteers (name) VALUES ('#{@name}') RETURNING id;")
+    result = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{@name}', '#{@project_id}') RETURNING id;")
     @id = result.first.fetch("id").to_i
   end
 
