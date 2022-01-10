@@ -86,7 +86,7 @@ describe Project do
 
   context '#delete' do
     it 'allows a user to delete a project' do
-      project = Project,new({:title => 'Teaching Kids to Code', :id => nil})
+      project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
       project.save
       project.delete
       expect(Project.all).to eq []
