@@ -1,4 +1,4 @@
-<h3>Edit or Delete current Volunteer <%= volunteer.name %></h3>
+<h3>Edit or Delete current Volunteer</h3>
 <form action="/projects/<%= @project.id %>/volunteers/<%= @volunteer.id %>" method="patch">
   <input name="_method" type="hidden" value="patch">
   <label for="name">Update Volunteer Name from <%= volunteer.name %> </label>
