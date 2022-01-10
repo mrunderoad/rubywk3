@@ -1,8 +1,8 @@
 class Project
-  attr_accessor :id, :name
+  attr_accessor :id, :title
 
   def initialize(attributes)
-    @name = attributes[:name]
+    @title = attributes[:title]
     @id = attributes[:id]
   end
 
@@ -10,27 +10,27 @@ class Project
     returned_projects = DB.exec("SELECT * FROM projects;")
     projects = []
     returned_projects.each do |project|
-      name = project.fetch("name")
+      title = project.fetch("title")
       id = project.fetch("id")
-      projects.push(Project.new({name: name, id: id}))
+      projects.push(Project.new({title: title, id: id}))
     end
     projects
   end
 
   def self.find(id)
     project = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
-    name = project.fetch("name")
+    title = project.fetch("title")
     id = project.fetch("id").to_i
-    Project.new({name: name, id: id})
+    Project.new({title: title, id: id})
   end
 
   def save
-    result = DB.exec("INSERT INTO projects (name) VALUES ('#{@name}') RETURNING id;")
+    result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
     @id = result.first.fetch("id").to_i
   end
 
   def ==(other_project)
-    self.name.eql?(other_project.name)
+    self.title.eql?(other_project.title)
   end
 
   def self.clear
@@ -38,9 +38,9 @@ class Project
   end
 
   def update(attributes)
-    if (attributes.has_key?(:name)) && (attributes[:name] != nil)
-      @name = attributes[:name]
-      DB.exec("UPDATE projects SET name = '#{@name}', project_id=#{project_id} id = #{@id};")
+    if (attributes.has_key?(:title)) && (attributes[:title] != nil)
+      @title = attributes[:title]
+      DB.exec("UPDATE projects SET title = '#{@title}', project_id=#{project_id} id = #{@id};")
     elsif (attributes.has_key?(:volunteer_name)) && (attributes[:volunteer_name] != nil)
       volunteer_name = attributes[:volunteer_name]
       volunteer = DB.exec("SELECT * FROM volunteers WHERE lower(name)='#{volunteer_name.upcase}';").first
@@ -52,15 +52,22 @@ class Project
   end
 
   def volunteers
-    volunteers = []
+     if volunteers = []
     results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{@id};")
-    results.each do |result|
-      volunteer_id = result.fetch("volunteer_id").to_i
-      volunteer = DB.exec("SELECT * FROM volunteers WHERE id = #{volunteer_id};")
-      name = project.first.fetch("name")
-      projects.push(Project.new({name: name, id: project._id}))
-    end
+     end
     volunteers
   end
+
+  # def volunteers
+  #   volunteers = []
+  #   results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{@id};")
+  #   results.each do |volunteer|
+  #     name = volunteer.fetch("name")
+  #     project_id = volunteer.fetch("project_id").to_i
+  #     id = volunteer.fetch("project_id").to_i
+  #     volunteers.push(Volunteer.new({name: name, project_id: project_id, id: id}))
+  #   end
+  #   volunteers
+  # end
 
 end

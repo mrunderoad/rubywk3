@@ -1,7 +1,7 @@
 <h3>Available Projects</h3>
 <% if @projects.any? %>
   <ul> <% @projects.each do |project| %>      
-    <li> <a href="/projects/<%= project.id %>"><strong><%= project.name %></strong></a> </li>
+    <li> <a href="/projects/<%= project.id %>"><strong><%= project.title %></strong></a> </li>
   <% end %>
   </ul>
 <% else %>

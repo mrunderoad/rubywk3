@@ -1,9 +1,10 @@
 class Volunteer
-  attr_accessor :name, :id
+  attr_accessor :name, :id, :project_id
 
   def initialize(attributes)
     @name = attributes[:name]
     @id = attributes[:id]
+    @project_id = attributes[:project_id]
   end
 
   def ==(volunteer_to_compare)
