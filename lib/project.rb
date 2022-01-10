@@ -40,10 +40,10 @@ class Project
   def update(attributes)
     if (attributes.has_key?(:name)) && (attributes[:name] != nil)
       @name = attributes[:name]
-      DB.exec("UPDATE projects SET name = '#{@name}' WHERE id = #{@id};")
+      DB.exec("UPDATE projects SET name = '#{@name}', project_id=#{project_id} id = #{@id};")
     elsif (attributes.has_key?(:volunteer_name)) && (attributes[:volunteer_name] != nil)
-      volunteer_name = attributes[:city_name]
-      volunteer = DB.exec("SELECT * FROM volunteers WHERE lower(name)='#{volunteer_name.downcase}';").first
+      volunteer_name = attributes[:volunteer_name]
+      volunteer = DB.exec("SELECT * FROM volunteers WHERE lower(name)='#{volunteer_name.upcase}';").first
     end
   end
 
@@ -53,7 +53,7 @@ class Project
 
   def volunteers
     volunteers = []
-    results = DB.exec("SELECT volunteer_id FROM projects WHERE project_id = #{@id};")
+    results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{@id};")
     results.each do |result|
       volunteer_id = result.fetch("volunteer_id").to_i
       volunteer = DB.exec("SELECT * FROM volunteers WHERE id = #{volunteer_id};")
