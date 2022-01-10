@@ -80,10 +80,15 @@ post('/projects/:id/volunteers') do
   erb(:project)
 end
 
+get('/projects/:id/volunteers/:volunteer_id') do
+  @project = Project.find(params[:id].to_i())
+  volunteer = Volunteer.find(params[:volunteer_id].to_i)
+end
+ 
 patch('/projects/:id/volunteers/:volunteer_id') do
   @project = Project.find(params[:id].to_i())
-  volunteer = Volunteer.find(params[:id].to_i())
-  volunteer.update({name: params[:name], project_id: @project.id, id: volunteer.id})
+  volunteer = Volunteer.find(params[:volunteer_id].to_i())
+  volunteer.update({name: params[:name], project_id: @project.id, volunteer_id: volunteer.id})
   erb(:project)
 end
 
