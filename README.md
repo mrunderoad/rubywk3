@@ -16,7 +16,7 @@ psql
 capybara
 
 ## Setup/Installation Requirements
-Navigate to https://github.com/mrunderoad/volunteer-tracker and clone the repo onto your local machine.
+Navigate to https://github.com/mrunderoad/rubywk3 and clone the repo onto your local machine.
 Open the project in VS code.
 (DOCKER)
 Run `docker-compose up` to get port number. example=port=4567

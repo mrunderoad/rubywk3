@@ -20,6 +20,7 @@ end
 
 delete('/projects') do
   Project.clear
+  Volunteer.clear
   redirect to('/projects')
 end
 
@@ -28,8 +29,7 @@ get('/projects/new') do
 end
 
 post('/projects') do
-  title = params[:title]
-  project = Project.new(title: title)
+  project = Project.new(title: params[:title])
   project.save()
   @projects = Project.all
   erb(:projects)
@@ -69,15 +69,14 @@ delete('/projects/:id') do
 end
 
 get('/projects/:id/volunteers/:volunteer_id') do
-  @volunteer = Volunteer.find(params[:city_id].to_i())
+  @volunteer = Volunteer.find(params[:volunteer_id].to_i())
   erb(:volunteers)
 end
 
 post('/projects/:id/volunteers') do
   @project = Project.find(params[:id].to_i())
-  volunteer = Volunteer.new({name: params[:volunteer_name]})
+  volunteer = Volunteer.new({name: params[:name], project_id: @project.id})
   volunteer.save()
-  # @project.update(volunteer_name: volunteer.name)
   erb(:project)
 end
 
