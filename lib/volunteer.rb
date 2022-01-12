@@ -49,8 +49,8 @@ class Volunteer
     if (attributes.has_key?(:name)) && (attributes[:name] != nil)
       @name = attributes[:name]
       DB.exec("UPDATE volunteers SET name = '#{@name}' WHERE id = #{@id};")
-    elsif (attributes.has_key?(:project_name)) && (attributes[:project_name] != nil)
-      project_name = attributes[:project_name]
+    elsif (attributes.has_key?(:title)) && (attributes[:title] != nil)
+      project_name = attributes[:title]
       project = DB.exec("SELECT * FROM projects WHERE lower(name)='#{project_name.downcase}';").first
     end
   end
