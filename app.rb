@@ -73,13 +73,17 @@ get('/projects/:id/volunteers/:volunteer_id') do
 end
  
 patch('/projects/:id/volunteers/:volunteer_id') do
-  @volunteer = Volunteer.find(params[:volunteer_id].to_i())
-  volunteer.update({name: params[:name]})
+  @volunteer = Volunteer.find(params[:volunteer_id].to_i)
+  @project = Project.find(params[:id].to_i)
+  @volunteer.update({name: params[:name], id: params[:id].to_i, volunteer_id: params[:volunteer_id].to_i})
+  # @volunteers = Volunteer.all
   erb(:project)
 end
 
 delete('/projects/:id/volunteers/:volunteer_id') do
-  @volunteer = Volunteer.find(params[:volunteer_id].to_i())
-  volunteer.delete
+  @volunteer = Volunteer.find(params[:volunteer_id].to_i)
+  @project = Project.find(params[:id].to_i)
+  @volunteer.delete()
+  @volunteers = Volunteer.all
   erb(:project)
 end
